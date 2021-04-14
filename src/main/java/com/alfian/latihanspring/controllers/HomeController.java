@@ -3,13 +3,12 @@ package com.alfian.latihanspring.controllers;
 import java.util.List;
 
 import com.alfian.latihanspring.helper.Json;
-import com.alfian.latihanspring.helper.JsonError;
 import com.alfian.latihanspring.models.dto.MahasiswaDto;
 import com.alfian.latihanspring.models.entity.Mahasiswa;
 import com.alfian.latihanspring.repository.MahasiswaRepository;
+import com.alfian.latihanspring.service.MahasiswaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,13 +21,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @RestController
 public class HomeController {
     @Autowired
     private MahasiswaRepository mahasiswaRepository;
+    @Autowired
+    private MahasiswaService mahasiswaService;
 
     @RequestMapping("/")
     public String Home() {
@@ -45,22 +45,26 @@ public class HomeController {
     @PostMapping("/newmahasiswa/add")
     public ResponseEntity<?> add(@RequestBody MahasiswaDto mahasiswaDto) {
         try {
-            Mahasiswa mahasiswa = new Mahasiswa();
+            // Mahasiswa mahasiswa = new Mahasiswa();
 
-            mahasiswa.setNama(mahasiswaDto.getNama());
-            mahasiswa.setJurusan(mahasiswaDto.getJurusan());
-            mahasiswa.setNim(mahasiswaDto.getNim());
-            mahasiswa.setTanggalLahir(mahasiswaDto.getTanggalLahir());
-            mahasiswa.setDomisili(mahasiswaDto.getDomisili());
+            // mahasiswa.setNama(mahasiswaDto.getNama());
+            // mahasiswa.setJurusan(mahasiswaDto.getJurusan());
+            // mahasiswa.setNim(mahasiswaDto.getNim());
+            // mahasiswa.setTanggalLahir(mahasiswaDto.getTanggalLahir());
+            // mahasiswa.setDomisili(mahasiswaDto.getDomisili());
 
+            // Mahasiswa[] resultArray = { mahasiswa };
+            // Json json = new Json(true, "Berhasil menambahkan data", resultArray);
+
+            // mahasiswaRepository.save(mahasiswa);
+            Mahasiswa mahasiswa = mahasiswaService.insertData(mahasiswaDto);
             Mahasiswa[] resultArray = { mahasiswa };
             Json json = new Json(true, "Berhasil menambahkan data", resultArray);
-
-            mahasiswaRepository.save(mahasiswa);
             return ResponseEntity.ok(json);
         } catch (Exception e) {
 
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            // throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
             // TODO: handle exception
         }
     }

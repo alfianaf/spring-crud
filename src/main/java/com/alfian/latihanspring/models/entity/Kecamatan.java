@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -17,29 +18,26 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "pendidikan")
-public class Pendidikan {
+@Table(name = "kecamatan")
+public class Kecamatan implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique = true)
-    private String kodePendidikan;
+    @Column(unique = true, length = 25)
+    private String kodeKecamatan;
 
     @Column
-    private String jenjang;
-
-    @Column
-    private String institusi;
+    private String namaKecamatan;
 
     @ManyToOne
-    @JoinColumn(name = "username", referencedColumnName = "username")
-    private User user;
+    @JoinColumn(name = "kodeKabupaten", referencedColumnName = "kodeKabupaten")
+    private Kabupaten kodeKabupaten;
 
-    public Pendidikan(String kodePendidikan, String jenjang, String institusi, User user) {
-        this.kodePendidikan = kodePendidikan;
-        this.jenjang = jenjang;
-        this.institusi = institusi;
-        this.user = user;
-    }
+    @ManyToOne
+    @JoinColumn(name = "kodeProvinsi", referencedColumnName = "kodeProvinsi")
+    private Provinsi kodeProvinsi;
+
+    @Column
+    private Integer isActive;
 }

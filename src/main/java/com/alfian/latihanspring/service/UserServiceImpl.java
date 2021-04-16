@@ -31,21 +31,22 @@ public class UserServiceImpl implements UserService {
     public ResponseEntity<?> regist(@RequestBody MahasiswaDto mahasiswaDto) {
         // TODO Auto-generated method stub
         StatusMessageDto<User> result = new StatusMessageDto<>();
-
+        // if (!mahasiswaDto.getGolDarah().equals("B") == true ||
+        // !mahasiswaDto.getGolDarah().equals("A") == true
+        // || !mahasiswaDto.getGolDarah().equalsIgnoreCase("O") == true
+        // || !mahasiswaDto.getGolDarah().equalsIgnoreCase("AB") == true) {
+        // result.setStatus(HttpStatus.BAD_REQUEST.value());
+        // result.setMessage(
+        // "Golongan darah harus valid! (A, B, O, atau AB)" +
+        // !mahasiswaDto.getGolDarah().equals("B"));
+        // return ResponseEntity.badRequest().body(result);
+        // }
         if (mahasiswaDto.getNik().length() != 16) {
             result.setStatus(HttpStatus.BAD_REQUEST.value());
             result.setMessage("NIK harus berjumlah 16 angka.");
             return ResponseEntity.badRequest().body(result);
         }
-        // if (mahasiswaDto.getGolDarah() != "B" ||
-        // !mahasiswaDto.getGolDarah().equalsIgnoreCase("A")
-        // || !mahasiswaDto.getGolDarah().equalsIgnoreCase("O")
-        // || !mahasiswaDto.getGolDarah().equalsIgnoreCase("AB")) {
-        // result.setStatus(HttpStatus.BAD_REQUEST.value());
-        // result.setMessage("Golongan darah harus valid! (A, B, O, atau AB)" +
-        // mahasiswaDto.getGolDarah().toString());
-        // return ResponseEntity.badRequest().body(result);
-        // }
+
         User user = new User();
         DetailUser detailUser = new DetailUser();
         Domisili domisili = new Domisili();
@@ -82,14 +83,9 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(id).get();
         DetailUser detailUser = detailUserRepository.findById(user.getId() + 1).get();
         Domisili domisili = domisiliRepository.findById(detailUser.getId() + 1).get();
-
-        if (!mahasiswaDto.getUsername().isEmpty()) {
-            user.setUsername(mahasiswaDto.getUsername());
-        }
-        if (!mahasiswaDto.getPassword().isEmpty()) {
-            user.setPassword(mahasiswaDto.getPassword());
-        }
-        // userRepository.save(user);
+        user.setUsername(mahasiswaDto.getUsername());
+        user.setPassword(mahasiswaDto.getPassword());
+        userRepository.save(user);
 
         detailUser.setFirstName(mahasiswaDto.getFirstName());
         detailUser.setLastName(mahasiswaDto.getLastName());
@@ -97,13 +93,13 @@ public class UserServiceImpl implements UserService {
         detailUser.setTanggalLahir(mahasiswaDto.getTanggalLahir());
         detailUser.setGolDarah(mahasiswaDto.getGolDarah());
         detailUser.setUser(user);
-        // detailUserRepository.save(detailUser);
+        detailUserRepository.save(detailUser);
 
         domisili.setKelurahan(mahasiswaDto.getKelurahan());
         domisili.setKecamatan(mahasiswaDto.getKecamatan());
         domisili.setProvinsi(mahasiswaDto.getProvinsi());
         domisili.setDetailUser(detailUser);
-        // domisiliRepository.save(domisili);
+        domisiliRepository.save(domisili);
 
         result.setStatus(HttpStatus.OK.value());
         result.setMessage("Data berhasil diubah!");

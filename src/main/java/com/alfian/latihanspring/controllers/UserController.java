@@ -2,6 +2,7 @@ package com.alfian.latihanspring.controllers;
 
 import java.util.List;
 
+import com.alfian.latihanspring.models.dto.LoginDto;
 import com.alfian.latihanspring.models.dto.MahasiswaDto;
 import com.alfian.latihanspring.models.dto.StatusMessageDto;
 import com.alfian.latihanspring.models.entity.DetailUser;
@@ -43,6 +44,16 @@ public class UserController {
             result.setMessage(e.getMessage());
             return ResponseEntity.badRequest().body(result);
         }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginDto loginDto) {
+        if (loginDto.getUsername().equals(userRepository.findUsernameByUsername(loginDto.getUsername()))) {
+            return ResponseEntity.badRequest().body("username telah ada.");
+        }
+
+        // String username = userRepository.findUsernameByUsername(dto.getUsername());
+        return ResponseEntity.ok("berhasil");
     }
 
     @PutMapping("/edit/{id}")

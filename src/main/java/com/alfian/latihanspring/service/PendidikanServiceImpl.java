@@ -24,7 +24,7 @@ public class PendidikanServiceImpl implements PendidikanService {
     private UserRepository userRepository;
 
     @Override
-    public ResponseEntity<?> regist(@RequestBody PendidikanDto pendidikanDto) {
+    public ResponseEntity<?> regist(@PathVariable String username, @RequestBody PendidikanDto pendidikanDto) {
         StatusMessageDto<Pendidikan> result = new StatusMessageDto<>();
 
         Pendidikan pendidikan = new Pendidikan();
@@ -34,7 +34,7 @@ public class PendidikanServiceImpl implements PendidikanService {
         pendidikanRepository.save(pendidikan);
         pendidikan.setKodePendidikan("P" + pendidikan.getId());
 
-        User user = userRepository.findByUsername(pendidikanDto.getUsername());
+        User user = userRepository.findByUsername(username);
         pendidikan.setUser(user);
 
         pendidikanRepository.save(pendidikan);

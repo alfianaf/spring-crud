@@ -32,11 +32,11 @@ public class PendidikanController {
     @Autowired
     private PendidikanService pendidikanService;
 
-    @PostMapping("/add")
-    public ResponseEntity<?> insertPendidikan(@RequestBody PendidikanDto pendidikanDto) {
+    @PostMapping("/add/{username}")
+    public ResponseEntity<?> insertPendidikan(@PathVariable String username, @RequestBody PendidikanDto pendidikanDto) {
         StatusMessageDto<Pendidikan> result = new StatusMessageDto<>();
         try {
-            return pendidikanService.regist(pendidikanDto);
+            return pendidikanService.regist(username, pendidikanDto);
         } catch (Exception e) {
             // TODO: handle exception
             result.setMessage(e.getMessage());
@@ -72,5 +72,29 @@ public class PendidikanController {
     public ResponseEntity<?> getDetail(@PathVariable Integer id) {
         Pendidikan pendidikan = pendidikanRepository.findById(id).get();
         return ResponseEntity.ok(pendidikan);
+    }
+
+    private Pendidikan convert(PendidikanDto pendidikanDto) {
+        Pendidikan pendidikan = new Pendidikan();
+        pendidikan.setInstitusi(pendidikanDto.getInstitusi());
+        pendidikan.setJenjang(pendidikanDto.getJenjang());
+        pendidikan.setKodePendidikan(pendidikanDto.getKodePendidikan());
+        pendidikanRepository.save(pendidikan);
+        pendidikan.setKodePendidikan("P" + pendidikan.getId());
+
+        User user = userRepository.findByUsername(pendidikanDto.getUsername());
+        pendidikan.setUser(user);
+        pendidikanRepository.save(pendidikan);
+        return pendidikan;
+    }
+
+    @PostMapping("/add/list")
+    public ResponseEntity<?> insertList(@RequestBody List<PendidikanDto> listDto) {
+
+        for (PendidikanDto pendidikanDto : listDto) {
+            convert(pendidikanDto);
+        }
+
+        return ResponseEntity.ok(listDto);
     }
 }

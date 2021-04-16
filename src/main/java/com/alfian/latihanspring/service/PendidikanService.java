@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface PendidikanService {
 
-    public ResponseEntity<?> regist(PendidikanDto pendidikanDto);
+    public ResponseEntity<?> regist(String username, PendidikanDto pendidikanDto);
 
     public ResponseEntity<?> edit(Integer id, PendidikanDto pendidikanDto);
 

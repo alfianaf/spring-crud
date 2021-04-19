@@ -6,6 +6,4 @@ import com.alfian.latihanspring.models.entity.Mahasiswa;
 public interface MahasiswaService {
     public Mahasiswa insertData(MahasiswaDto mahasiswaDto);
 
-    public Mahasiswa updateData(Integer id, MahasiswaDto mahasiswaDto);
-
 }

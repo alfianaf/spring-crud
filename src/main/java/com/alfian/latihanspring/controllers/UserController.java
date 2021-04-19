@@ -40,7 +40,6 @@ public class UserController {
         try {
             return userService.regist(mahasiswaDto);
         } catch (Exception e) {
-            // TODO: handle exception
             result.setMessage(e.getMessage());
             return ResponseEntity.badRequest().body(result);
         }
@@ -63,7 +62,6 @@ public class UserController {
         try {
             return userService.edit(id, mahasiswaDto);
         } catch (Exception e) {
-            // TODO: handle exception
             result.setMessage(e.getMessage());
             return ResponseEntity.badRequest().body(result);
         }

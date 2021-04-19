@@ -1,6 +1,5 @@
 package com.alfian.latihanspring.models.entity;
 
-import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.Column;

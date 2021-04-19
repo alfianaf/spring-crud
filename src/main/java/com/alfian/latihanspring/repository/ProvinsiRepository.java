@@ -1,12 +1,9 @@
 package com.alfian.latihanspring.repository;
 
-import java.util.List;
-
 import com.alfian.latihanspring.models.entity.Provinsi;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 @Repository

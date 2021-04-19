@@ -5,12 +5,9 @@ import java.util.List;
 import com.alfian.latihanspring.models.dto.StatusMessageDto;
 import com.alfian.latihanspring.models.dto.WilayahDto;
 import com.alfian.latihanspring.models.entity.Kabupaten;
-import com.alfian.latihanspring.repository.DesaRepository;
 import com.alfian.latihanspring.repository.KabupatenRepository;
-import com.alfian.latihanspring.repository.KecamatanRepository;
-import com.alfian.latihanspring.repository.ProvinsiRepository;
+
 import com.alfian.latihanspring.service.KabupatenService;
-import com.alfian.latihanspring.service.ProvinsiService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,16 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/kabupaten")
 public class KabupatenController {
     @Autowired
-    private ProvinsiRepository provinsiRepository;
-
-    @Autowired
     private KabupatenRepository kabupatenRepository;
-
-    @Autowired
-    private KecamatanRepository kecamatanRepository;
-
-    @Autowired
-    private DesaRepository desaRepository;
 
     @Autowired
     private KabupatenService kabupatenService;
@@ -75,7 +63,6 @@ public class KabupatenController {
         try {
             return kabupatenService.add(kode, wilayahDto);
         } catch (Exception e) {
-            // TODO: handle exception
             result.setMessage(e.getMessage());
             return ResponseEntity.badRequest().body(result);
         }
@@ -88,7 +75,6 @@ public class KabupatenController {
         try {
             return kabupatenService.edit(id, wilayahDto);
         } catch (Exception e) {
-            // TODO: handle exception
             result.setMessage(e.getMessage());
             return ResponseEntity.badRequest().body(result);
         }

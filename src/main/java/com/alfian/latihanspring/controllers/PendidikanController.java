@@ -11,7 +11,6 @@ import com.alfian.latihanspring.repository.UserRepository;
 import com.alfian.latihanspring.service.PendidikanService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +37,6 @@ public class PendidikanController {
         try {
             return pendidikanService.regist(username, pendidikanDto);
         } catch (Exception e) {
-            // TODO: handle exception
             result.setMessage(e.getMessage());
             return ResponseEntity.badRequest().body(result);
         }
@@ -51,7 +49,6 @@ public class PendidikanController {
         try {
             return pendidikanService.edit(id, pendidikanDto);
         } catch (Exception e) {
-            // TODO: handle exception
             result.setMessage(e.getMessage());
             return ResponseEntity.badRequest().body(result);
         }

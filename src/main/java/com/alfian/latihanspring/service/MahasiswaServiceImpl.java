@@ -7,7 +7,6 @@ import com.alfian.latihanspring.repository.MahasiswaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
@@ -29,14 +28,6 @@ public class MahasiswaServiceImpl implements MahasiswaService {
             mahasiswaRepository.save(mahasiswa);
             return mahasiswa;
         }
-        return null;
-    }
-
-    @Override
-    public Mahasiswa updateData(@PathVariable Integer id, @RequestBody MahasiswaDto mahasiswaDto) {
-        // TODO Auto-generated method stub
-        Mahasiswa mahasiswa = mahasiswaRepository.findById(id).get();
-
         return null;
     }
 

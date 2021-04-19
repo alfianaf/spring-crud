@@ -65,7 +65,6 @@ public class HomeController {
 
             // throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
-            // TODO: handle exception
         }
     }
 

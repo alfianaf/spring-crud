@@ -5,7 +5,6 @@ import com.alfian.latihanspring.models.dto.WilayahDto;
 import com.alfian.latihanspring.models.entity.Provinsi;
 import com.alfian.latihanspring.repository.ProvinsiRepository;
 
-import org.apache.tomcat.util.http.fileupload.MultipartStream.ProgressNotifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +39,7 @@ public class ProvinsiServiceImpl implements ProvinsiService {
         Provinsi provinsi = provinsiRepository.findById(id).get();
 
         provinsi.setNamaProvinsi(wilayahDto.getNamaProvinsi());
+
         provinsiRepository.save(provinsi);
         result.setStatus(HttpStatus.OK.value());
         result.setMessage("Data berhasil diubah!");

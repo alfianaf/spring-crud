@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DesaRepository extends JpaRepository<Desa, Integer> {
-    @Query(value = "select * from desa where is_active = '1'", nativeQuery = true)
+    @Query(value = "select * from desa where is_active = '1' ", nativeQuery = true)
     public List<Desa> findActive();
 
     @Query(value = "select * from desa where kode_desa = ? AND is_active = '1'", nativeQuery = true)

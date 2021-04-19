@@ -29,7 +29,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<?> regist(@RequestBody MahasiswaDto mahasiswaDto) {
-        // TODO Auto-generated method stub
         StatusMessageDto<User> result = new StatusMessageDto<>();
         // if (!mahasiswaDto.getGolDarah().equals("B") == true ||
         // !mahasiswaDto.getGolDarah().equals("A") == true
@@ -77,7 +76,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<?> edit(@PathVariable Integer id, @RequestBody MahasiswaDto mahasiswaDto) {
-        // TODO Auto-generated method stub
         StatusMessageDto<User> result = new StatusMessageDto<>();
 
         User user = userRepository.findById(id).get();

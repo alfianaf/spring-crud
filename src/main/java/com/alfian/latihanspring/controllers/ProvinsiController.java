@@ -1,16 +1,8 @@
 package com.alfian.latihanspring.controllers;
 
-import java.util.List;
-
 import com.alfian.latihanspring.models.dto.StatusMessageDto;
 import com.alfian.latihanspring.models.dto.WilayahDto;
-import com.alfian.latihanspring.models.entity.Desa;
-import com.alfian.latihanspring.models.entity.Kabupaten;
-import com.alfian.latihanspring.models.entity.Kecamatan;
 import com.alfian.latihanspring.models.entity.Provinsi;
-import com.alfian.latihanspring.repository.DesaRepository;
-import com.alfian.latihanspring.repository.KabupatenRepository;
-import com.alfian.latihanspring.repository.KecamatanRepository;
 import com.alfian.latihanspring.repository.ProvinsiRepository;
 import com.alfian.latihanspring.service.ProvinsiService;
 
@@ -30,15 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProvinsiController {
     @Autowired
     private ProvinsiRepository provinsiRepository;
-
-    @Autowired
-    private KabupatenRepository kabupatenRepository;
-
-    @Autowired
-    private KecamatanRepository kecamatanRepository;
-
-    @Autowired
-    private DesaRepository desaRepository;
 
     @Autowired
     private ProvinsiService provinsiService;
@@ -69,7 +52,6 @@ public class ProvinsiController {
         try {
             return provinsiService.add(wilayahDto);
         } catch (Exception e) {
-            // TODO: handle exception
             result.setMessage(e.getMessage());
             return ResponseEntity.badRequest().body(result);
         }
@@ -82,7 +64,6 @@ public class ProvinsiController {
         try {
             return provinsiService.edit(id, wilayahDto);
         } catch (Exception e) {
-            // TODO: handle exception
             result.setMessage(e.getMessage());
             return ResponseEntity.badRequest().body(result);
         }

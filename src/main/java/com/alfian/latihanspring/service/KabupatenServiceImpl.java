@@ -51,6 +51,7 @@ public class KabupatenServiceImpl implements KabupatenService {
         Kabupaten kabupaten = kabupatenRepository.findById(id).get();
 
         kabupaten.setNamaKabupaten(wilayahDto.getNamaKabupaten());
+
         kabupatenRepository.save(kabupaten);
         result.setStatus(HttpStatus.OK.value());
         result.setMessage("Data berhasil diubah!");

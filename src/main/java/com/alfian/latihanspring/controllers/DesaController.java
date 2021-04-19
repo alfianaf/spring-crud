@@ -6,12 +6,10 @@ import com.alfian.latihanspring.models.dto.StatusMessageDto;
 import com.alfian.latihanspring.models.dto.WilayahDto;
 import com.alfian.latihanspring.models.entity.Desa;
 import com.alfian.latihanspring.repository.DesaRepository;
-import com.alfian.latihanspring.repository.KabupatenRepository;
-import com.alfian.latihanspring.repository.KecamatanRepository;
-import com.alfian.latihanspring.repository.ProvinsiRepository;
 import com.alfian.latihanspring.service.DesaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,15 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/desa")
 public class DesaController {
-    @Autowired
-    private ProvinsiRepository provinsiRepository;
-
-    @Autowired
-    private KabupatenRepository kabupatenRepository;
-
-    @Autowired
-    private KecamatanRepository kecamatanRepository;
-
     @Autowired
     private DesaRepository desaRepository;
 
@@ -49,16 +38,31 @@ public class DesaController {
 
     @GetMapping("/get-by-id/{id}")
     public ResponseEntity<?> getId(@PathVariable Integer id) {
-        Desa desa = desaRepository.findById(id).get();
+        StatusMessageDto<Desa> result = new StatusMessageDto<>();
+        try {
+            Desa desa = desaRepository.findById(id).get();
 
-        return ResponseEntity.ok(desa);
+            return ResponseEntity.ok(desa);
+        } catch (Exception e) {
+            result.setStatus(HttpStatus.BAD_REQUEST.value());
+            result.setMessage("Inputan Salah!");
+            return ResponseEntity.badRequest().body(result);
+        }
+
     }
 
     @GetMapping("/get-by-kode/{kode}")
     public ResponseEntity<?> getKode(@PathVariable String kode) {
+        StatusMessageDto<Desa> result = new StatusMessageDto<>();
+        try {
+            Desa desa = desaRepository.findKode(kode);
 
-        Desa desa = desaRepository.findKode(kode);
-        return ResponseEntity.ok(desa);
+            return ResponseEntity.ok(desa);
+        } catch (Exception e) {
+            result.setStatus(HttpStatus.BAD_REQUEST.value());
+            result.setMessage("Inputan Salah!");
+            return ResponseEntity.badRequest().body(result);
+        }
     }
 
     @GetMapping("/get-by-provinsi/{kode}")
@@ -88,7 +92,6 @@ public class DesaController {
         try {
             return desaService.add(wilayahDto);
         } catch (Exception e) {
-            // TODO: handle exception
             result.setMessage(e.getMessage());
             return ResponseEntity.badRequest().body(result);
         }
@@ -101,7 +104,6 @@ public class DesaController {
         try {
             return desaService.edit(id, wilayahDto);
         } catch (Exception e) {
-            // TODO: handle exception
             result.setMessage(e.getMessage());
             return ResponseEntity.badRequest().body(result);
         }
